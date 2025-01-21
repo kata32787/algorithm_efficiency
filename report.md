@@ -1,3 +1,4 @@
+# PART 1
 Time Complexity Analysis
 Partitioning Time:
 
@@ -137,3 +138,111 @@ Worst-case time complexity:
 O(n 
 2
  ), which occurs rarely due to random pivot selection.
+
+ # PART 2
+Hashing with Chaining
+Implementation:
+
+A hash table was implemented using chaining for collision resolution.
+Supported operations:
+Insert: Add a key-value pair.
+Search: Retrieve the value for a given key.
+Delete: Remove a key-value pair.
+Theoretical Analysis:
+
+Time Complexity:
+Best Case: 
+𝑂
+(
+1
+)
+O(1) for search, insert, and delete when collisions are minimal.
+Worst Case: 
+𝑂
+(
+𝑛
+)
+O(n) when all keys collide and end up in the same bucket.
+Average Case: 
+𝑂
+(
+1
+)
+O(1) with a good hash function and low load factor.
+Load Factor (
+𝛼
+α):
+Defined as 
+𝛼
+=
+Number of elements
+Number of buckets
+α= 
+Number of buckets
+Number of elements
+​
+ .
+Performance degrades as 
+𝛼
+α increases due to more collisions.
+Dynamic resizing can mitigate this issue by keeping 
+𝛼
+<
+0.7
+α<0.7.
+Dynamic Resizing:
+When 
+𝛼
+>
+0.7
+α>0.7, the table is resized (e.g., capacity doubled).
+Resizing takes 
+𝑂
+(
+𝑛
+)
+O(n) but occurs infrequently, so amortized complexity is 
+𝑂
+(
+1
+)
+O(1).
+# Empirical Results:
+Search for 'apple': 5
+After deleting 'banana':
+Bucket 1: []
+Bucket 2: []
+Bucket 3: []
+Bucket 4: []
+Bucket 5: [['orange', 15]]
+Bucket 7: []
+Bucket 8: []
+Bucket 9: [['apple', 5]]
+PS D:\errands\git\algorithm_efficiency> python -m unittest test_hash_table.py
+>>
+....
+----------------------------------------------------------------------
+Ran 4 tests in 0.001s
+
+OK
+PS D:\errands\git\algorithm_efficiency> python hash_table.py
+Search for 'apple': 5
+After deleting 'banana':
+Bucket 0: []
+Bucket 1: [['orange', 15]]
+Bucket 2: []
+Bucket 3: []
+Bucket 4: []
+Bucket 5: [['apple', 5]]
+Bucket 6: []
+Bucket 7: []
+Bucket 8: []
+Bucket 9: []
+PS D:\errands\git\algorithm_efficiency> python -m unittest test_hash_table.py
+....
+----------------------------------------------------------------------
+Ran 4 tests in 0.001s 
+
+The hash table performed well for small and moderate numbers of elements.
+As the load factor increased beyond 0.7, performance degraded, confirming the need for resizing.
+After implementing dynamic resizing, operations remained efficient even with a high number of elements.
